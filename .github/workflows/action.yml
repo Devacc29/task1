@@ -34,7 +34,7 @@ jobs:
             - name: install dependencies
               run: npm ci
             - name: Run lint
-              run: npma run lint
+              run: npm run lint
             - name: db dr details
               run: |
                 echo "Mongo dr passw: ${{ secrets.MONGO_DR_PASSWORD}}"  
@@ -78,7 +78,7 @@ jobs:
           run: npm ci
         - name: Building
           id: building
-          run: npm run build
+          run: npma run build
         - name: upload artifacts
           uses: actions/upload-artifact@v4
           if: failure() && steps.building.outcome == 'failure'
