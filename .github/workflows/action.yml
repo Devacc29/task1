@@ -34,7 +34,7 @@ jobs:
             - name: install dependencies
               run: npm ci
             - name: Run lint
-              run: npm run lint
+              run: npma run lint
             - name: db dr details
               run: |
                 echo "Mongo dr passw: ${{ secrets.MONGO_DR_PASSWORD}}"  
@@ -78,9 +78,12 @@ jobs:
         - name: install dependencies
           run: npm ci
         - name: Building
+          id: building
           run: npm run build
         - name: upload artifacts
           uses: actions/upload-artifact@v4
+          if: failure() && steps.building.outcome == 'failure'
+      #even if the id build step fails the upload step will run
           with:
             name: dist-files
             path: public
@@ -124,3 +127,13 @@ jobs:
                 echo "Mongo user_name: ${{ env.MONGO_USER}}"
                 echo "Mongo db passw: ${{ secrets.MONGO_PASSWORD}}"
                 echo "Mongo db: ${{ env.MONGODB_NAME}}"
+    report:
+      if: failure()
+      runs-on: ubuntu-latest
+      needs: deploy
+      steps:
+        - name: Failure job details
+          run: |
+            echo "Job failed"
+
+
