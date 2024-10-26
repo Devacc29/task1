@@ -13,8 +13,8 @@ on:
       - master
       - 'feat-*'
       - 'feature/**'
-    paths-ignore:
-      - '.github/workflows/*'
+    # paths-ignore:
+    #   - '.github/workflows/*'
   workflow_dispatch:
 
 jobs:
@@ -40,6 +40,8 @@ jobs:
     build:
       needs: test
       runs-on: ubuntu-latest
+      outputs: 
+        js-file: ${{ steps.publish.outputs.jsfile }}
       steps:
         - name: Get code
           uses: actions/checkout@v4
@@ -55,6 +57,9 @@ jobs:
             # path: |
             #   public
             #   package.json
+        - name: publish js file
+          id: publish
+          run: find src/test/*.js -type f -execdir echo 'jsfile={}' >> $GITHUB_OUTPUT ';'
 
     deploy:
         needs: build
@@ -70,5 +75,7 @@ jobs:
                 name: dist-files
             - name: output contents
               run: ls -Flah
+            - name: output file name
+              run: echo "${{ needs.build.outputs.js-file }}"
             - name: Deploying
               run: echo "Deploying....."
