@@ -70,15 +70,17 @@ jobs:
         - name: Get code
           uses: actions/checkout@v4
         - name: cache dependecies
+          id: cache
           uses: actions/cache@v4
           with:
             path: ~/.npm
             key: deps-node-modules-${{ hashFiles('**/package-lock.json')}}
         - name: install dependencies
+          if: steps.cache.outputs.cache-hit != 'true'
           run: npm ci
         - name: Building
           id: building
-          run: npma run build
+          run: npm run build
         - name: upload artifacts
           uses: actions/upload-artifact@v4
           if: failure() && steps.building.outcome == 'failure'
