@@ -10,7 +10,7 @@ on:
       - 'feature/**'
   push:
     branches:
-      - main
+      - master
       - 'feat-*'
       - 'feature/**'
     paths-ignore:
