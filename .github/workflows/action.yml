@@ -1,10 +1,22 @@
 name: Actions
-on: #[push, workflow_dispatch]
+on:
   pull_request:
     types:
       - opened
       - closed
+    branches:
+      - main
+      - 'feat-*'
+      - 'feature/**'
+  push:
+    branches:
+      - main
+      - 'feat-*'
+      - 'feature/**'
+    paths-ignore:
+      - '.github/workflows/*'
   workflow_dispatch:
+
 jobs:
     lint:
         runs-on: ubuntu-latest
