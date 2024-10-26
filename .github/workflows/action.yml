@@ -40,7 +40,6 @@ jobs:
                 echo "Mongo dr passw: ${{ secrets.MONGO_DR_PASSWORD}}"  
               #secret stored in environments
     test:
-        needs: lint
         runs-on: ubuntu-latest
         env:
           MONGO_USER: admin
