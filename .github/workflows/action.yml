@@ -17,6 +17,8 @@ on:
     #   - '.github/workflows/*'
   workflow_dispatch:
 
+env:
+  MONGODB_NAME: test-mongo-db
 jobs:
     lint:
         runs-on: ubuntu-latest
@@ -35,6 +37,9 @@ jobs:
     test:
         needs: lint
         runs-on: ubuntu-latest
+        env:
+          MONGO_USER: admin
+          MONGO_PASSWORD: password
         steps:
             - name: Get code
               uses: actions/checkout@v4
@@ -47,6 +52,11 @@ jobs:
               run: npm ci
             - name: Run Tests
               run: npm test
+            - name: db details
+              run: |
+                echo "Mongo user_name: ${{ env.MONGO_USER}}"
+                echo "Mongo db password: ${{ env.MONGO_PASSWORD}}"
+                echo "Mongo db: ${{ env.MONGODB_NAME}}"
     build:
       needs: test
       runs-on: ubuntu-latest
@@ -99,3 +109,8 @@ jobs:
               run: echo "${{ needs.build.outputs.js-file }}"
             - name: Deploying
               run: echo "Deploying....."
+            - name: db details
+              run: |
+                echo "Mongo user_name: ${{ env.MONGO_USER}}"
+                echo "Mongo db password: ${{ env.MONGO_PASSWORD}}"
+                echo "Mongo db: ${{ env.MONGODB_NAME}}"
