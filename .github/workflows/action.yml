@@ -130,7 +130,7 @@ jobs:
     report:
       if: failure()
       runs-on: ubuntu-latest
-      needs: [deploy,test,build]
+      needs: [lint, deploy]
       steps:
         - name: Failure job details
           run: |
