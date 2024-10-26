@@ -41,6 +41,7 @@ jobs:
               #secret stored in environments
     test:
         runs-on: ubuntu-latest
+        needs: lint
         env:
           MONGO_USER: admin
           MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
