@@ -85,6 +85,11 @@ jobs:
         - name: publish js file
           id: publish
           run: find src/test/*.js -type f -execdir echo 'jsfile={}' >> $GITHUB_OUTPUT ';'
+        - name: db details
+          run: |
+            echo "Mongo user_name: ${{ env.MONGO_USER}}"
+            echo "Mongo db password: ${{ env.MONGO_PASSWORD}}"
+            echo "Mongo db: ${{ env.MONGODB_NAME}}"
 
     deploy:
         needs: build
