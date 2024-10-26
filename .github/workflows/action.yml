@@ -82,8 +82,8 @@ jobs:
           id: building
           run: npm run build
         - name: upload artifacts
-          uses: actions/upload-artifact@v4
-          if: failure() && steps.building.outcome == 'failure'
+          uses: actions/upload-artifact@v4 
+          if: success() && steps.building.outcome == 'success'
       #even if the id build step fails the upload step will run
           with:
             name: dist-files
