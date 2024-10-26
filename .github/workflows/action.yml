@@ -35,9 +35,9 @@ jobs:
               run: npm ci
             - name: Run lint
               run: npm run lint
-            - name: db details
+            - name: db dr details
               run: |
-                echo "Mongo db password: ${{ secrets.MONGO_DR_PASSWORD}}"  
+                echo "Mongo dr passw: ${{ secrets.MONGO_DR_PASSWORD}}"  
               #secret stored in environments
     test:
         needs: lint
@@ -93,7 +93,7 @@ jobs:
         - name: db details
           run: |
             echo "Mongo user_name: ${{ env.MONGO_USER}}"
-            echo "Mongo db password: ${{ secrets.MONGO_PASSWORD}}"
+            echo "Mongo db passw: ${{ secrets.MONGO_PASSWORD}}"
             echo "Mongo db: ${{ env.MONGODB_NAME}}"
 
     deploy:
@@ -122,5 +122,5 @@ jobs:
             - name: db details
               run: |
                 echo "Mongo user_name: ${{ env.MONGO_USER}}"
-                echo "Mongo db password: ${{ secrets.MONGO_PASSWORD}}"
+                echo "Mongo db passw: ${{ secrets.MONGO_PASSWORD}}"
                 echo "Mongo db: ${{ env.MONGODB_NAME}}"
