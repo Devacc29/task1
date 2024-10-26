@@ -1,5 +1,10 @@
 name: Actions
-on: [push, workflow_dispatch]
+on: #[push, workflow_dispatch]
+  pull_request:
+    types:
+      - opened
+      - closed
+  workflow_dispatch:
 jobs:
     lint:
         runs-on: ubuntu-latest
