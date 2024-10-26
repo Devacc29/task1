@@ -39,7 +39,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
           MONGO_USER: admin
-          MONGO_PASSWORD: password
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
         steps:
             - name: Get code
               uses: actions/checkout@v4
@@ -55,7 +55,7 @@ jobs:
             - name: db details
               run: |
                 echo "Mongo user_name: ${{ env.MONGO_USER}}"
-                echo "Mongo db password: ${{ env.MONGO_PASSWORD}}"
+                echo "Mongo db password: ${{ secrets.MONGO_PASSWORD}}"
                 echo "Mongo db: ${{ env.MONGODB_NAME}}"
     build:
       needs: test
@@ -88,7 +88,7 @@ jobs:
         - name: db details
           run: |
             echo "Mongo user_name: ${{ env.MONGO_USER}}"
-            echo "Mongo db password: ${{ env.MONGO_PASSWORD}}"
+            echo "Mongo db password: ${{ secrets.MONGO_PASSWORD}}"
             echo "Mongo db: ${{ env.MONGODB_NAME}}"
 
     deploy:
@@ -117,5 +117,5 @@ jobs:
             - name: db details
               run: |
                 echo "Mongo user_name: ${{ env.MONGO_USER}}"
-                echo "Mongo db password: ${{ env.MONGO_PASSWORD}}"
+                echo "Mongo db password: ${{ secrets.MONGO_PASSWORD}}"
                 echo "Mongo db: ${{ env.MONGODB_NAME}}"
