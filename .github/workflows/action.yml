@@ -1,7 +1,7 @@
 name: Actions
 on: [push, workflow_dispatch]
 jobs:
-    job1:
+    lint:
         runs-on: ubuntu-latest
         steps:
             - name: Get code
@@ -10,8 +10,22 @@ jobs:
               run: npm ci
             - name: Run lint
               run: npm run lint
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get code
+              uses: actions/checkout@v4
+            - name: install dependencies
+              run: npm ci
             - name: Run Tests
               run: npm test
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get code
+              uses: actions/checkout@v4
+            - name: install dependencies
+              run: npm ci
             - name: Build
               run: npm build
             - name: Deploying
